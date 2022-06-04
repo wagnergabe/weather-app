@@ -24,6 +24,18 @@ function getCities() {
             var temperature = document.createElement('li');
             temperature.textContent = data.current.temp;
             card.appendChild(temperature);
+
+            var humidity = document.createElement('li');
+            humidity.textContent = "Humidity: " + data.current.humidity + "%";
+            card.appendChild(humidity);
+
+            var windSpeed = document.createElement('li');
+            windSpeed.textContent = "Wind Speed: " + data.current.wind_speed + " MPH";
+            card.appendChild(windSpeed);
+
+            var uvIndex = document.createElement('li');
+            uvIndex.textContent = "UV Index: " + data.current.uvi;
+            card.appendChild(uvIndex);
             
 
         })
