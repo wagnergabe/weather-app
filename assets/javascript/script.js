@@ -6,8 +6,9 @@ var searchBtnEl = document.getElementById('searchBtn');
 
 searchBtnEl.addEventListener("click", getCities) 
 function getCities() {
-    var url = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid=649cad07f48dfced963391132fc3e4be"
-
+    var APIkey = "649cad07f48dfced963391132fc3e4be"
+    /*Chicago test*/ 
+    var url = "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=649cad07f48dfced963391132fc3e4be"
     fetch(url)
         .then(function (response) {
             return response.json();
