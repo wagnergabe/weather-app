@@ -8,7 +8,7 @@ var mainCardEl= document.getElementById('weatherStats')
 /*API Fetch*/ 
 
 
-function getCities() {
+var getCities = function() {
     
     /*Need to provide city name, date, icon for weather cond. */
     /*Temperature (temp), Humidity (humidity), wind speed(wind_speed), UV Index(uvi)*/ 
@@ -35,14 +35,9 @@ function getCities() {
             var windSpeed = document.createElement('li');
             windSpeed.textContent = "Wind Speed: " + data.wind.speed + " MPH";
             mainCardEl.appendChild(windSpeed);
+            
 
-            var lon = data.coord.lon;
-            var lat = data.coord.lat;
-
-            console.log(lon, lat);
-
-            var uviURL= (`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=649cad07f48dfced963391132fc3e4be`)
-                fetch(uviURL)
+            fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=649cad07f48dfced963391132fc3e4be`)
             .then(function (response) {
                 return response.json();
             })
