@@ -55,6 +55,12 @@ function getCities() {
                 var uvi = document.createElement('li');
                 uvi.textContent = "UV Index: " + data.current.uvi;
                 mainCardEl.appendChild(uvi);
+                if (data.current.uvi < 2)
+                    uvi.style.color = 'green';
+                if (data.current.uvi > 2 && data.current.uvi < 7)
+                    uvi.style.color = "yellow";
+                if (data.current.uvi > 7)
+                    uvi.style.color = "red";
             })
             
 
