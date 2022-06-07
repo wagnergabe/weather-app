@@ -2,10 +2,8 @@
 var searchBtnEl = document.getElementById('searchBtn');
 var cardEl = document.getElementById('card')
 var apiKey= "649cad07f48dfced963391132fc3e4be"
-var mainCardEl = document.getElementById('weatherStats')
-var cityListEl = {
-    
-}
+var mainCardEl = document.getElementById('weatherStats');
+var sunnyEl = document.getElementById('sun');
 
 /*API Fetch*/ 
 
@@ -65,6 +63,9 @@ function getCities() {
                 if (data.current.uvi > 7)
                     uvi.style.color = "red";
             })
+
+                if (data.clouds.all === 0)
+                    sunnyEl.style.display = "block"
             
 
             

@@ -11,6 +11,11 @@
     text-align: center;
 }
 
+#sun {
+    font-size: 45px;
+    display: none;
+}
+
 
 
 h1 {
