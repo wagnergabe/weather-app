@@ -3,10 +3,9 @@ var searchBtnEl = document.getElementById('searchBtn');
 var cardEl = document.getElementById('card')
 var apiKey= "649cad07f48dfced963391132fc3e4be"
 var mainCardEl = document.getElementById('weatherStats')
-window.localStorage.setItem('citySearch', JSON.stringify);
-
+var cityListEl = {
     
-
+}
 
 /*API Fetch*/ 
 

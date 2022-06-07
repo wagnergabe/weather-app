@@ -16,22 +16,27 @@
     </header>
 
     <!--City Search-->
-    <div class="flex-row">
-        <div class = col-sm-3>
-            <div class ="card" id="card">
+    <div class="container justify-content-center">
+      <div class = "row">
+            <div class ="col-xs-3" id="card">
                 <p>Search for a city:</p>
                     <input type = "text" id = "citySearch">
                     <button class = "btn bg-primary" id="searchBtn">Search</button>
             </div>
-            <ul class = "cityList"></ul>
+            <div class = "col-sm-9 text-center">
+
+                <span><div id = "weatherStats"></span>
+            </div>
+            </div>
+        
+        </div>
+      </div>
+    </div>    
         
     
 
     <!--Weather Main-->
-        <div class = col-sm-9>
-        <div id = "weatherStats"></class>
-    </div>
-
+    
     <!--5-day Forecast-->
     <div id = "row forecast">
 
