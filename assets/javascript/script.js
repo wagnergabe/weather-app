@@ -2,7 +2,10 @@
 var searchBtnEl = document.getElementById('searchBtn');
 var cardEl = document.getElementById('card')
 var apiKey= "649cad07f48dfced963391132fc3e4be"
-var mainCardEl= document.getElementById('weatherStats')
+var mainCardEl = document.getElementById('weatherStats')
+window.localStorage.setItem('citySearch', JSON.stringify);
+
+    
 
 
 /*API Fetch*/ 
@@ -24,6 +27,7 @@ function getCities() {
 
             console.log(data);
 
+
             var temperature = document.createElement('li');
             temperature.textContent ="Temperature: " + data.main.temp + " degrees F";
             mainCardEl.appendChild(temperature);
@@ -41,8 +45,8 @@ function getCities() {
 
             console.log(lon, lat);
 
-            /*Ran into a little bit of a paradox with the "onecall" and "weather" calls. "onecall" needs city geolocation(lat and lon) while "weather" didn't supply UV index */
-            /* Seems like a contrived approach, but two calls to the api (one for the main temp data, and city location) followed by a call entering said "lat and lon" eventually worked*/
+            /*Ran into a little bit of a paradox with the "onecall" and "weather" calls. "onecall" needs city geolocation(lat and lon) while "weather" can be called with city name, but doesnt supply UV index. */
+            /* Seems like a contrived approach, but two calls to the api (one for the main temp data, and city location) followed by a call entering discovered "lat and lon" eventually worked*/
             var uviURL= `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
                 fetch(uviURL)
             .then(function (response) {
@@ -51,14 +55,14 @@ function getCities() {
             .then(function (data) {
 
                 console.log(data)
-                
+                //uvi index  source : https://www.animassurgical.com/the-uv-index-and-why-you-should-care-about-it/
                 var uvi = document.createElement('li');
                 uvi.textContent = "UV Index: " + data.current.uvi;
                 mainCardEl.appendChild(uvi);
                 if (data.current.uvi < 2)
                     uvi.style.color = 'green';
                 if (data.current.uvi > 2 && data.current.uvi < 7)
-                    uvi.style.color = "yellow";
+                    uvi.style.color = "orange";
                 if (data.current.uvi > 7)
                     uvi.style.color = "red";
             })
