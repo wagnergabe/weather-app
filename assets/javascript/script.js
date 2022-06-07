@@ -4,7 +4,7 @@ var cardEl = document.getElementById('card')
 var apiKey= "649cad07f48dfced963391132fc3e4be"
 var mainCardEl = document.getElementById('weatherStats');
 var sunnyEl = document.getElementById('sun');
-
+var forecastEl = document.getElementById('forecast');
 /*API Fetch*/ 
 
 
@@ -64,6 +64,14 @@ function getCities() {
                     uvi.style.color = "red";
             })
 
+            var fiveDayURL = `http://api.openweathermap.org/data/2.5/forecast/?lat=${lat}&lon=${lon}&cnt=5&appid=${apiKey}&units=imperial`
+                fetch(fiveDayURL)
+                .then(function (response){
+                    return response.json();
+                })
+                    .then(function(data) {
+                    console.log(data)
+                    })
                 if (data.clouds.all === 0)
                     sunnyEl.style.display = "block"
             
