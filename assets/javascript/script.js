@@ -24,7 +24,7 @@ function getCities() {
 
             console.log(data);
             var displayDate = document.createElement('h2');
-            displayDate.textContent = moment().format('L');
+            displayDate.textContent = data.name + " " + moment().format('L');
             mainCardEl.appendChild(displayDate);
 
             var temperature = document.createElement('li');
@@ -82,6 +82,8 @@ function getCities() {
                     forecastEl.appendChild(wind);
 
                     console.log(data)
+                    console.log(data.list[i].weather.icon)
+
   
                     }
                     })
