@@ -98,7 +98,7 @@ function getCities() {
                     forecastEl.appendChild(humidity);
 
                     var icon = document.createElement('img');
-                    icon.src = "https://openweathermap.org/img/w/" + data.list[i].weather.icon + ".png";
+                    icon.src = "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png";
                     forecastEl.appendChild(icon);
 
                     
