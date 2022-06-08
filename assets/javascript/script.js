@@ -8,6 +8,7 @@ var forecastEl = document.getElementById('forecast');
 /*API Fetch*/ 
 
 
+
 function getCities() {
 
     
@@ -16,6 +17,10 @@ function getCities() {
     /*Temperature (temp), Humidity (humidity), wind speed(wind_speed), UV Index(uvi)*/ 
     /*Onecall api having trouble finding city*/ 
     var cityName = document.getElementById('citySearch').value;
+
+    
+    
+
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
 
         fetch(url)
@@ -84,6 +89,19 @@ function getCities() {
                     
                     console.log(data)
 
+                    //Think i can append new items as cards...
+
+                    var forecastCards = document.createElement('div')
+                    
+                    var weatherCard = document.createElement('div')
+                    weatherCard.className = "card"
+
+                    var card = document.createElement('div')
+                    card.className = "card-body"
+
+                    var cardName = document.createElement('h2')
+                    cardName.className = moment();
+
                     
                     var forecastTemp = document.createElement('li');
                     forecastTemp.textContent ="Temperature:" + data.list[i].main.temp + "°";
@@ -101,6 +119,17 @@ function getCities() {
                     icon.src = "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png";
                     forecastEl.appendChild(icon);
 
+                    card.appendChild(cardName)
+                    card.appendChild(forecastTemp)
+                    card.appendChild(wind)
+                    card.appendChild(humidity)
+                    card.appendChild(icon)
+                    weatherCard.appendChild(card)
+                    forecastCards.appendChild(weatherCard)
+                    forecastEl.appendChild(weatherCard)
+
+                    /*Source that helped creating cards, Originally tried making different classnames in the HTML for each day, but end-result was far from desired outcome*/
+                    /*https://youtu.be/zikLN9XHy4I*/
                     
                     }
                     })

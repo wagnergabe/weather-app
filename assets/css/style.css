@@ -21,3 +21,13 @@ h1 {
     font-weight: 200;
 }
 
+#forecast {
+    text-decoration: none;
+    list-style: none;
+    text-align: center;
+    display:flex;
+    justify-content: end;
+    margin:5px;
+    padding: 5px;
+}
+
