@@ -9,6 +9,8 @@ var forecastEl = document.getElementById('forecast');
 
 
 function getCities() {
+
+    
     
     /*Need to provide city name, date, icon for weather cond. */
     /*Temperature (temp), Humidity (humidity), wind speed(wind_speed), UV Index(uvi)*/ 
@@ -66,6 +68,9 @@ function getCities() {
                     uvi.style.color = "red";
             })
 
+
+            /* */
+
             var fiveDayURL = `http://api.openweathermap.org/data/2.5/forecast/?lat=${lat}&lon=${lon}&cnt=5&appid=${apiKey}&units=imperial`
                 fetch(fiveDayURL)
                 .then(function (response){
@@ -75,29 +80,41 @@ function getCities() {
          
 
                     for (var i = 0; i < data.list.length; i++) {
+
                     
+                    console.log(data)
+
                     
+                    var forecastTemp = document.createElement('li');
+                    forecastTemp.textContent ="Temperature:" + data.list[i].main.temp + "°";
+                    forecastEl.appendChild(forecastTemp);
+
                     var wind = document.createElement('li');
                     wind.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
                     forecastEl.appendChild(wind);
 
-                    console.log(data)
-                    console.log(data.list[i].weather.icon)
+                    var humidity = document.createElement('li');
+                    humidity.textContent = "humidity: " + data.list[i].main.humidity + "%";
+                    forecastEl.appendChild(humidity);
 
-  
+                    var icon = document.createElement('img');
+                    icon.src = "https://openweathermap.org/img/w/" + data.list[i].weather.icon + ".png";
+                    forecastEl.appendChild(icon);
+
+                    
                     }
                     })
+
+                    var saveSearch = function(cityName) {
+                        if(!saveSearch.includes(cityName)) {
+                            saveSearch.push(cityName);
+                            document.saveSearch.appendChild(citySearch)
+                        }
+                        localStorage.setItem("searchHistory", JSON.stringify(saveSearch));
+
+                    }
                 
-            
-
-            
-            
-
-            // var uvIndex = document.createElement('li');
-            // uvIndex.textContent = "UV Index: " + data.current.uvi;
-            // card.appendChild(uvIndex);
-            
-
+        
         })
 };
 searchBtnEl.addEventListener("click", getCities) 
