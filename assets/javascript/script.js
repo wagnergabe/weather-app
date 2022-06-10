@@ -1,3 +1,4 @@
+
 /* Element variables*/
 var searchBtnEl = document.getElementById('searchBtn');
 var cardEl = document.getElementById('card')
@@ -5,19 +6,31 @@ var apiKey= "649cad07f48dfced963391132fc3e4be"
 var mainCardEl = document.getElementById('weatherStats');
 var sunnyEl = document.getElementById('sun');
 var forecastEl = document.getElementById('forecast');
-/*API Fetch*/ 
+var historyEl = document.getElementById('history');
 
+mainCardEl.style.display = "none";
+forecastEl.style.dispay = "none";
 
+searchBtnEl.addEventListener("click", getCities) 
 
 function getCities() {
+    
+    mainCardEl.style.display = "block";
+    forecastEl.style.display = "block";
+    
 
     
+
     
     /*Need to provide city name, date, icon for weather cond. */
     /*Temperature (temp), Humidity (humidity), wind speed(wind_speed), UV Index(uvi)*/ 
     /*Onecall api having trouble finding city*/ 
     var cityName = document.getElementById('citySearch').value;
 
+    localStorage.setItem("citySave", JSON.stringify(cityName) )
+    var cityList = document.createElement('li');
+    cityList.textcontent = cityName;
+    historyEl.appendChild(cityList);
     
     
 
@@ -134,16 +147,9 @@ function getCities() {
                     }
                     })
 
-                    var saveSearch = function(cityName) {
-                        if(!saveSearch.includes(cityName)) {
-                            saveSearch.push(cityName);
-                            document.saveSearch.appendChild(citySearch)
-                        }
-                        localStorage.setItem("searchHistory", JSON.stringify(saveSearch));
-
-                    }
                 
+
+                                    
         
         })
 };
-searchBtnEl.addEventListener("click", getCities) 
