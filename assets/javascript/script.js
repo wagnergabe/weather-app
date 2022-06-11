@@ -95,15 +95,13 @@ function getCities() {
                     return response.json();
                 })
                     .then(function(data) {
+                        console.log(data)
          
 
                     for (var i = 0; i < data.list.length; i++) {
 
                     
-                    console.log(data)
-
-                    //Think i can append new items as cards...
-
+                    
                     var forecastCards = document.createElement('div')
                     
                     var weatherCard = document.createElement('div')
@@ -115,6 +113,10 @@ function getCities() {
                     var cardName = document.createElement('h2')
                     cardName.className = moment();
 
+                    //discovered that "dt" in the API data is a timestamp
+
+                    // var forecastDate = document.createElement('h4');
+                    //     var dt = (data.dt * 1000)
                     
                     var forecastTemp = document.createElement('li');
                     forecastTemp.textContent ="Temperature:" + data.list[i].main.temp + "°";
