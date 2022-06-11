@@ -66,7 +66,7 @@ function getCities() {
 
             /*Ran into a little bit of a paradox with the "onecall" and "weather" calls. "onecall" needs city geolocation(lat and lon) while "weather" can be called with city name, but doesnt supply UV index. */
             /* Seems like a contrived approach, but two calls to the api (one for the main temp data, and city location) followed by a call entering discovered "lat and lon" eventually worked*/
-            var uviURL= `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
+            var uviURL= `https://api.openweathermap.org/data/2.5/onecall?cnt=5&lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
                 fetch(uviURL)
             .then(function (response) {
                 return response.json();
@@ -84,21 +84,9 @@ function getCities() {
                     uvi.style.color = "orange";
                 if (data.current.uvi > 7)
                     uvi.style.color = "red";
-            })
+            
 
-
-            /* */
-
-            var fiveDayURL = `http://api.openweathermap.org/data/2.5/forecast/?lat=${lat}&lon=${lon}&cnt=5&appid=${apiKey}&units=imperial`
-                fetch(fiveDayURL)
-                .then(function (response){
-                    return response.json();
-                })
-                    .then(function(data) {
-                        console.log(data)
-         
-
-                    for (var i = 0; i < data.list.length; i++) {
+                    for (var i = 0; i < data.daily.length - 3; i++) {
 
                     
                     
@@ -113,30 +101,35 @@ function getCities() {
                     var cardName = document.createElement('h2')
                     cardName.className = moment();
 
-                    //discovered that "dt" in the API data is a timestamp
-
-                    // var forecastDate = document.createElement('h4');
-                    //     var dt = (data.dt * 1000)
+                    //discovered that "dt" in the API data is a timestamp "Time of data forecasted, unix, UTC" and its value is in milliseconds. multiply it by 1000 and it should represent the current time
+                    //working on Moment().unix to pass dt as a string and it should return the proper dates
+                   
+    
+                    var forecastDate = document.createElement('li');
+                    forecastDate.textContent = "date" + moment.unix(data.daily[i].dt).format('l');
+                    forecastEl.appendChild(forecastDate);
                     
                     var forecastTemp = document.createElement('li');
-                    forecastTemp.textContent ="Temperature:" + data.list[i].main.temp + "°";
+                    forecastTemp.textContent ="Temperature:" + data.daily[i].temp.day + "°";
                     forecastEl.appendChild(forecastTemp);
 
                     var wind = document.createElement('li');
-                    wind.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
+                    wind.textContent = "Wind: " + data.daily[i].wind_speed + " MPH";
                     forecastEl.appendChild(wind);
 
                     var humidity = document.createElement('li');
-                    humidity.textContent = "humidity: " + data.list[i].main.humidity + "%";
+                    humidity.textContent = "humidity: " + data.daily[i].humidity + "%";
                     forecastEl.appendChild(humidity);
 
                     var icon = document.createElement('img');
-                    icon.src = "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png";
+                    icon.src = "https://openweathermap.org/img/w/" + data.daily[i].weather[0].icon + ".png";
                     forecastEl.appendChild(icon);
 
                     card.appendChild(cardName)
+                    card.appendChild(forecastDate);
                     card.appendChild(forecastTemp)
-                    card.appendChild(wind)
+                    card.appendChild(wind);
+                    card.appendChild(forecastDate);
                     card.appendChild(humidity)
                     card.appendChild(icon)
                     weatherCard.appendChild(card)
@@ -148,10 +141,6 @@ function getCities() {
                     
                     }
                     })
-
-                
-
+                })
                                     
-        
-        })
 };
