@@ -11,8 +11,9 @@
     text-align: center;
 }
 
-#weatherstats {
-    border: gold solid
+li {
+    text-decoration: none;
+    list-style: none;
 }
 
 
@@ -31,3 +32,8 @@ h1 {
     padding: 5px;
 }
 
+button {
+    background-color:gainsboro;
+    padding:2px;
+    margin: 5px;
+}

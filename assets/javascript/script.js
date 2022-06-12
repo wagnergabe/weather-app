@@ -1,4 +1,5 @@
 
+
 /* Element variables*/
 var searchBtnEl = document.getElementById('searchBtn');
 var cardEl = document.getElementById('card')
@@ -7,32 +8,29 @@ var mainCardEl = document.getElementById('weatherStats');
 var sunnyEl = document.getElementById('sun');
 var forecastEl = document.getElementById('forecast');
 var historyEl = document.getElementById('history');
+var cityListEl = document.getElementById('cityList');
+historyEl = []
 
-mainCardEl.style.display = "none";
-forecastEl.style.dispay = "none";
 
+/*click function */
 searchBtnEl.addEventListener("click", getCities) 
 
 function getCities() {
+   
+/*New City Button */
     
-    mainCardEl.style.display = "block";
-    forecastEl.style.display = "block";
-    
-
-    
-
-    
-    /*Need to provide city name, date, icon for weather cond. */
-    /*Temperature (temp), Humidity (humidity), wind speed(wind_speed), UV Index(uvi)*/ 
-    /*Onecall api having trouble finding city*/ 
     var cityName = document.getElementById('citySearch').value;
 
     localStorage.setItem("citySave", JSON.stringify(cityName) )
-    var cityList = document.createElement('li');
-    cityList.textcontent = cityName;
-    historyEl.appendChild(cityList);
+
+    var cityBtn = document.createElement('button')
+    cityBtn.textContent = cityName.toUpperCase();
+    historyEl.push(cityBtn)
+    cityListEl.appendChild(cityBtn);
+
+
     
-    
+/*Api Call */
 
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
 
@@ -42,13 +40,15 @@ function getCities() {
         })
         .then(function (data) {
 
+/*main card element */
+
             console.log(data);
             var displayDate = document.createElement('h2');
             displayDate.textContent = data.name + " " + moment().format('L');
             mainCardEl.appendChild(displayDate);
 
             var temperature = document.createElement('li');
-            temperature.textContent ="Temperature: " + data.main.temp + " degrees F";
+            temperature.textContent ="Temperature: " + data.main.temp + "°F";
             mainCardEl.appendChild(temperature);
 
             var humidity = document.createElement('li');
@@ -73,6 +73,8 @@ function getCities() {
             })
             .then(function (data) {
 
+    /*UV Index */
+
                 console.log(data)
                 //uvi index  source : https://www.animassurgical.com/the-uv-index-and-why-you-should-care-about-it/
                 var uvi = document.createElement('li');
@@ -86,9 +88,10 @@ function getCities() {
                     uvi.style.color = "red";
             
 
+    /* 5 Day forecast */
+
                     for (var i = 0; i < data.daily.length - 3; i++) {
 
-                    
                     
                     var forecastCards = document.createElement('div')
                     
@@ -142,5 +145,4 @@ function getCities() {
                     }
                     })
                 })
-                                    
-};
+            }                                   
